@@ -5,3 +5,4 @@ SEED    TRAIN_ACC   TEST_ACC    LR
 7930    80+         88          0.01 (200 epochs)
 7930    90.7158     91.6        0.01 (150 epochs)
 8641    75          48.8
+6524    97.6        97.6        0.1 (10 epochs)
