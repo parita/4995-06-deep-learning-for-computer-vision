@@ -1,0 +1,819 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{HW3}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{Deep Learning for Computer Vision: Assignment
+3}\label{deep-learning-for-computer-vision-assignment-3}
+
+    \subsection{Computer Science: COMS W 4995
+006}\label{computer-science-coms-w-4995-006}
+
+    \subsubsection{Due: March 6, 2018}\label{due-march-6-2018}
+
+    \paragraph{Problem}\label{problem}
+
+    You are given two dimensional input from three separate classes. Your
+task is to implement a multi-layer perceptron (MLP) 3-class classifier
+with multiple hidden layers and a regularization on the weights. For the
+activiation function of the hidden units use ReLU or leaky ReLU. For the
+predictions use softmax on a linear output layer as we did in class.
+Your loss layer should compute \(-\log P(y = i \,|{\bf x})\) where \(i\)
+is the correct label according to the training data.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\item
+  Implement each layer type (hidden, output, and loss) as separate
+  python classes, each with methods for initialization, forward
+  propagation, and backpropagation.
+\item
+  Implement a MLP as its own class, with separate methods for
+  initialization, adding a layer, forward propagation, backpropagation,
+  training and prediction.
+\item
+  Let the layer dimensions be parameters passed when the network is
+  created.
+\item
+  Let the number of training epochs, the mini-batch size, and the
+  regularization parameter be parameters that are passed when training
+  the network.
+\item
+  Build and run your network using your own constructs. The code for
+  doing this might look like:
+\end{enumerate}
+
+    NN = MLP() NN.add\_layer('Hidden', dim\_in=2, dim\_out=16)
+NN.add\_layer('Hidden', dim\_in=16, dim\_out=16) NN.add\_layer('Hidden',
+dim\_in=16, dim\_out=16) NN.add\_layer('Output', dim\_in=16, dim\_out=3)
+NN.add\_layer('Loss', dim\_in=3, dim\_out=3)
+
+loss = NN.train(X, y, epochs=100, bsize=8, alpha=0.0) plot\_loss(loss)
+plot\_decision\_regions(NN)
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{5}
+\item
+  Show the decision regions of the trained classifier by densely
+  generating points in the plane and color coding these points with the
+  three different labels.
+\item
+  Repeat varying the number of hidden units (3, 8, 16), the number of
+  hidden layers (1 and 3), and the regularization value (0 and some
+  other value of your choosing).
+\item
+  Now replace your ReLU activation function with a softplus function and
+  repeat.
+\end{enumerate}
+
+Grading: a-g=90\%, h=10\%.
+
+\paragraph{NOTE: Do not to use keras, tensorflow, pytorch, sklearn, etc.
+to do this. You must build the machine learning components from
+scratch.}\label{note-do-not-to-use-keras-tensorflow-pytorch-sklearn-etc.-to-do-this.-you-must-build-the-machine-learning-components-from-scratch.}
+
+\paragraph{YOUR CODE MUST BE YOUR
+OWN.}\label{your-code-must-be-your-own.}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    Let's start by importing some libraries.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{sys}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    Let's make up our 2D data for our three classes.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{5000}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Let\PYZsq{}s make up some noisy XOR data to use to build our binary classifier}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{x1} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{x2} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{k}{if} \PY{n}{x1} \PY{o}{==} \PY{l+m+mi}{1} \PY{o+ow}{and} \PY{n}{x2} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{n}{y} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{elif} \PY{n}{x1} \PY{o}{==} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{x2} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                \PY{n}{y} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{elif} \PY{n}{x1} \PY{o}{==} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{x2} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{n}{y} \PY{o}{=} \PY{l+m+mi}{1}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{y} \PY{o}{=} \PY{l+m+mi}{2}
+            \PY{n}{x1} \PY{o}{=} \PY{l+m+mf}{1.0} \PY{o}{*} \PY{n}{x1} \PY{o}{+} \PY{l+m+mf}{0.20} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{p}{)}
+            \PY{n}{x2} \PY{o}{=} \PY{l+m+mf}{1.0} \PY{o}{*} \PY{n}{x2} \PY{o}{+} \PY{l+m+mf}{0.20} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{p}{)}
+            \PY{n}{data}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{x1}
+            \PY{n}{data}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{x2}
+            \PY{n}{data}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{y}
+            
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{l+m+mf}{0.25} \PY{o}{*}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{k} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}  
+            \PY{n}{data}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{k}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.5} \PY{o}{+} \PY{l+m+mf}{0.20} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{p}{)}
+            \PY{n}{data}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{k}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.5} \PY{o}{+} \PY{l+m+mf}{0.20} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{p}{)}
+            \PY{n}{data}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{k}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+        
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{l+m+mf}{0.25} \PY{o}{*}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{k} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}  
+            \PY{n}{data}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{k}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.5} \PY{o}{+} \PY{l+m+mf}{0.20} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{p}{)}
+            \PY{n}{data}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{k}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.75} \PY{o}{+} \PY{l+m+mf}{0.20} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{p}{)}
+            \PY{n}{data}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{k}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{2}
+            
+        \PY{c+c1}{\PYZsh{} Now let\PYZsq{}s normalize this data.}
+        \PY{n}{data}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+        \PY{n}{data}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+                
+        \PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}          x1        x2    y
+        0 -1.324042  0.622898  0.0
+        1 -0.517602 -1.408522  2.0
+        2 -1.362575 -0.507502  1.0
+        3  1.473187  1.062844  1.0
+        4  0.369025  0.593598  2.0
+\end{Verbatim}
+            
+    Let's message this data into a numpy format.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} set X (training data) and y (target variable)}
+        \PY{n}{cols} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{X} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{cols}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{y} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{cols}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{n}{cols}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} The cost function is expecting numpy matrices so we need to convert X and y before we can use them.  }
+        \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+\end{Verbatim}
+
+
+    Let's make a sloppy plotting function for our binary data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Sloppy function for plotting our data}
+        \PY{k}{def} \PY{n+nf}{plot\PYZus{}data}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y\PYZus{}predict}\PY{p}{)}\PY{p}{:}
+            
+            \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{margins}\PY{p}{(}\PY{l+m+mf}{0.05}\PY{p}{)} \PY{c+c1}{\PYZsh{} Optional, just adds 5\PYZpc{} padding to the autoscaling}
+        
+            \PY{n}{indices\PYZus{}0} \PY{o}{=} \PY{p}{[}\PY{n}{k} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{k}{if} \PY{n}{y\PYZus{}predict}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{indices\PYZus{}1} \PY{o}{=} \PY{p}{[}\PY{n}{k} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{k}{if} \PY{n}{y\PYZus{}predict}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}
+            \PY{n}{indices\PYZus{}2} \PY{o}{=} \PY{p}{[}\PY{n}{k} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{k}{if} \PY{n}{y\PYZus{}predict}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{]}
+        
+            \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{indices\PYZus{}0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{indices\PYZus{}0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{indices\PYZus{}1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{indices\PYZus{}1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{indices\PYZus{}2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{indices\PYZus{}2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+            \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tricky 3 Class Classification}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    Now let's plot it.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{plot\PYZus{}data}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Now build your network. Good luck! 😉
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{data} \PY{o}{=} \PY{n}{X}
+        \PY{n}{labels} \PY{o}{=} \PY{n}{y}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{class} \PY{n+nc}{Linear}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Linear}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{in\PYZus{}units} \PY{o}{=} \PY{n}{args}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{out\PYZus{}units} \PY{o}{=} \PY{n}{args}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                 
+         \PY{c+c1}{\PYZsh{}         self.weight = np.zeros((self.out\PYZus{}units, self.in\PYZus{}units))}
+         \PY{c+c1}{\PYZsh{}         self.bias = np.zeros((self.out\PYZus{}units, 1))}
+                 
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{weight} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{out\PYZus{}units}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{in\PYZus{}units}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bias} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{out\PYZus{}units}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                 
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{grad\PYZus{}w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{out\PYZus{}units}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{in\PYZus{}units}\PY{p}{)}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{grad\PYZus{}b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{out\PYZus{}units}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{get\PYZus{}input\PYZus{}size}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{in\PYZus{}units}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{zero\PYZus{}grad}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{grad\PYZus{}w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{out\PYZus{}units}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{in\PYZus{}units}\PY{p}{)}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{grad\PYZus{}b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{out\PYZus{}units}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                 
+             \PY{k}{def} \PY{n+nf}{apply}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{weight}\PY{p}{,} \PY{n}{x}\PY{p}{)} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bias}
+             
+             \PY{k}{def} \PY{n+nf}{backprop}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{grad}\PY{p}{,} \PY{n}{h\PYZus{}in}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{grad\PYZus{}w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{grad}\PY{p}{,} \PY{n}{h\PYZus{}in}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+                 \PY{n}{grad\PYZus{}b} \PY{o}{=} \PY{n}{grad}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{grad\PYZus{}w} \PY{o}{+}\PY{o}{=} \PY{l+m+mf}{1.0}\PY{o}{/}\PY{n}{batch\PYZus{}size} \PY{o}{*} \PY{n}{grad\PYZus{}w}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{grad\PYZus{}b} \PY{o}{+}\PY{o}{=} \PY{l+m+mf}{1.0}\PY{o}{/}\PY{n}{batch\PYZus{}size} \PY{o}{*} \PY{n}{grad\PYZus{}b}
+                 \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{weight}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{grad}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{update}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{lr}\PY{p}{,} \PY{n}{alpha}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{weight} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{lr}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{grad\PYZus{}w} \PY{o}{\PYZhy{}} \PY{n}{alpha}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{weight}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{weight}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bias} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{lr}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{grad\PYZus{}b}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{zero\PYZus{}grad}\PY{p}{(}\PY{p}{)}
+             
+         \PY{k}{class} \PY{n+nc}{ReLU}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ReLU}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{in\PYZus{}units} \PY{o}{=} \PY{n}{args}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{out\PYZus{}units} \PY{o}{=} \PY{n}{args}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         
+             \PY{k}{def} \PY{n+nf}{get\PYZus{}input\PYZus{}size}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{in\PYZus{}units}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{zero\PYZus{}grad}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{pass}
+             
+             \PY{k}{def} \PY{n+nf}{apply}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{maximum}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{x}\PY{p}{)} 
+             
+             \PY{k}{def} \PY{n+nf}{backprop}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{grad}\PY{p}{,} \PY{n}{h\PYZus{}in}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{grad}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{h\PYZus{}in} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.0}
+                 \PY{k}{return} \PY{n}{grad}
+         
+             \PY{k}{def} \PY{n+nf}{update}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{pass}
+             
+         \PY{k}{class} \PY{n+nc}{softmax}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{softmax}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{in\PYZus{}units} \PY{o}{=} \PY{n}{args}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{out\PYZus{}units} \PY{o}{=} \PY{n}{args}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             
+             \PY{k}{def} \PY{n+nf}{likelihood}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{batch\PYZus{}out}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{e\PYZus{}out} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{batch\PYZus{}out}\PY{p}{)}
+                 \PY{n}{e\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{e\PYZus{}out}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{P} \PY{o}{=} \PY{n}{e\PYZus{}out} \PY{o}{/} \PY{n}{e\PYZus{}mean}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{,} \PY{p}{:}\PY{p}{]}
+                 \PY{k}{return} \PY{n}{P}
+             
+             \PY{k}{def} \PY{n+nf}{apply}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{out}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{e\PYZus{}out} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{out}\PY{p}{)}
+                 \PY{n}{log\PYZus{}sum} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{e\PYZus{}out}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{n}{log\PYZus{}sum} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{log\PYZus{}sum}\PY{p}{)}
+                 \PY{n}{label} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{logP} \PY{o}{=} \PY{o}{\PYZhy{}} \PY{n}{e\PYZus{}out}\PY{p}{[}\PY{n}{label}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{+} \PY{n}{log\PYZus{}sum}
+                 \PY{k}{return} \PY{n}{logP}
+             
+             \PY{k}{def} \PY{n+nf}{get\PYZus{}input\PYZus{}size}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{in\PYZus{}units}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{backprop}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{z}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{e\PYZus{}z} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+                 \PY{n}{grad} \PY{o}{=} \PY{n}{e\PYZus{}z} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{e\PYZus{}z}\PY{p}{)}
+                 \PY{n}{label} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{grad}\PY{p}{[}\PY{n}{label}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mf}{1.0}
+                 \PY{k}{return} \PY{n}{grad}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{class} \PY{n+nc}{Network}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{in\PYZus{}dims}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{in\PYZus{}dims} \PY{o}{=} \PY{n}{in\PYZus{}dims}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{n}{num\PYZus{}classes}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layers} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{inputs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{loss} \PY{o}{=} \PY{k+kc}{None}
+                 
+             \PY{k}{def} \PY{n+nf}{add\PYZus{}layer}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{layer\PYZus{}name}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{layer} \PY{o}{=} \PY{n+nb}{getattr}\PY{p}{(}\PY{n}{sys}\PY{o}{.}\PY{n}{modules}\PY{p}{[}\PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}}\PY{p}{]}\PY{p}{,} \PY{n}{layer\PYZus{}name}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{layer}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{)}\PY{p}{)}
+                 
+             \PY{k}{def} \PY{n+nf}{add\PYZus{}loss}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{loss\PYZus{}name}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{loss} \PY{o}{=} \PY{n+nb}{getattr}\PY{p}{(}\PY{n}{sys}\PY{o}{.}\PY{n}{modules}\PY{p}{[}\PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}}\PY{p}{]}\PY{p}{,} \PY{n}{loss\PYZus{}name}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{loss} \PY{o}{=} \PY{n}{loss}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}classes}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{k}{def} \PY{n+nf}{model\PYZus{}compile}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{pass}
+                     
+             \PY{k}{def} \PY{n+nf}{\PYZus{}forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{idx}\PY{p}{,} \PY{n}{do\PYZus{}train} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{out} \PY{o}{=} \PY{n}{x}
+                 \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layers}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{do\PYZus{}train}\PY{p}{:}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{inputs}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{[}\PY{n}{idx}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{out}
+                     \PY{n}{out} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layers}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{out}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{out}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}backward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{z}\PY{p}{,} \PY{n}{idx}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{grad} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{loss}\PY{o}{.}\PY{n}{backprop}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layers}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{h\PYZus{}in} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{inputs}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{[}\PY{n}{idx}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{p}{]}
+                     \PY{n}{grad} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layers}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{o}{.}\PY{n}{backprop}\PY{p}{(}\PY{n}{grad}\PY{p}{,} \PY{n}{h\PYZus{}in}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{p}{)}
+                 \PY{k}{return}
+                 
+             \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{batch\PYZus{}x}\PY{p}{,} \PY{n}{do\PYZus{}train} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{inputs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{batch\PYZus{}x}\PY{p}{)}
+                 \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{n}{batch\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{batch\PYZus{}out} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}classes}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                 
+                 \PY{k}{if} \PY{n}{do\PYZus{}train}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{inputs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                     \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layers}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{size} \PY{o}{=} \PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{p}{)} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layers}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{o}{.}\PY{n}{get\PYZus{}input\PYZus{}size}\PY{p}{(}\PY{p}{)}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layers}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{o}{.}\PY{n}{zero\PYZus{}grad}\PY{p}{(}\PY{p}{)}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{inputs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{size}\PY{p}{)}\PY{p}{)}
+                     
+                 \PY{k}{for} \PY{n}{idx} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{x} \PY{o}{=} \PY{n}{batch\PYZus{}x}\PY{p}{[}\PY{n}{idx}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{p}{]}
+                     \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{in\PYZus{}dims}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                     \PY{n}{out} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{idx}\PY{p}{,} \PY{n}{do\PYZus{}train}\PY{p}{)}
+                     \PY{n}{out} \PY{o}{=} \PY{n}{out}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}classes}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{batch\PYZus{}out}\PY{p}{[}\PY{n}{idx}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{out}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{batch\PYZus{}out}
+             
+             \PY{k}{def} \PY{n+nf}{backward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{batch\PYZus{}y}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{n}{batch\PYZus{}y}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{k}{for} \PY{n}{idx} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{y} \PY{o}{=} \PY{n}{batch\PYZus{}y}\PY{p}{[}\PY{n}{idx}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{p}{]}
+                     \PY{n}{y} \PY{o}{=} \PY{n}{y}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                     \PY{n}{out} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{batch\PYZus{}out}\PY{p}{[}\PY{n}{idx}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{p}{]}
+                     \PY{n}{out} \PY{o}{=} \PY{n}{out}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}classes}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}backward}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{out}\PY{p}{,} \PY{n}{idx}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{p}{)}
+                     
+             \PY{k}{def} \PY{n+nf}{update\PYZus{}batch}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{lr}\PY{p}{,} \PY{n}{alpha}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layers}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layers}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{n}{lr}\PY{p}{,} \PY{n}{alpha}\PY{p}{)}
+                 
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{inputs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layers}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{size} \PY{o}{=} \PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{p}{)} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layers}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{o}{.}\PY{n}{get\PYZus{}input\PYZus{}size}\PY{p}{(}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{inputs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{size}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{return}
+             
+             \PY{k}{def} \PY{n+nf}{compute\PYZus{}loss}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{batch\PYZus{}out}\PY{p}{,} \PY{n}{batch\PYZus{}y}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{n}{batch\PYZus{}out}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{loss} \PY{o}{=} \PY{l+m+mf}{0.0}
+                 \PY{k}{for} \PY{n}{idx} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{out} \PY{o}{=} \PY{n}{batch\PYZus{}out}\PY{p}{[}\PY{n}{idx}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{p}{]}
+                     \PY{n}{out} \PY{o}{=} \PY{n}{out}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}classes}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                     \PY{n}{y} \PY{o}{=} \PY{n}{batch\PYZus{}y}\PY{p}{[}\PY{n}{idx}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{p}{]}
+                     \PY{n}{y} \PY{o}{=} \PY{n}{y}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                     \PY{n}{loss} \PY{o}{+}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{loss}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{out}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+             
+                 \PY{n}{loss} \PY{o}{/}\PY{o}{=} \PY{n}{batch\PYZus{}size}
+                 \PY{k}{return} \PY{n}{loss}
+             
+             \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{out}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{P} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{loss}\PY{o}{.}\PY{n}{likelihood}\PY{p}{(}\PY{n}{out}\PY{p}{)}
+                 \PY{n}{pred\PYZus{}labels} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{pred\PYZus{}labels} \PY{o}{=} \PY{n}{pred\PYZus{}labels}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{out}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{pred\PYZus{}labels}
+                 
+                 
+             \PY{k}{def} \PY{n+nf}{accuracy}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{out}\PY{p}{,} \PY{n}{labels}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{test\PYZus{}n} \PY{o}{=} \PY{n}{labels}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{pred\PYZus{}labels} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{out}\PY{p}{)}
+                 \PY{n}{matches} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{labels} \PY{o}{==} \PY{n}{pred\PYZus{}labels}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{matches} \PY{o}{*} \PY{l+m+mf}{100.0} \PY{o}{/} \PY{n}{test\PYZus{}n}
+                 
+             \PY{k}{def} \PY{n+nf}{train}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{epochs} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} 
+                       \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{16}\PY{p}{,} \PY{n}{lr} \PY{o}{=} \PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.02}\PY{p}{,}
+                       \PY{n}{seed} \PY{o}{=} \PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                 
+                 \PY{k}{if} \PY{n}{seed} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{seed} \PY{o}{=} \PY{n}{seed}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{seed} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+         
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training seed: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{k}{self}.seed)
+                 \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{seed}\PY{p}{)}
+                 
+                 \PY{n}{n\PYZus{}train} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{num\PYZus{}batches} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{n\PYZus{}train} \PY{o}{/} \PY{p}{(}\PY{n}{batch\PYZus{}size} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{train\PYZus{}idx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+                 
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{train\PYZus{}loss} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{epochs}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{train\PYZus{}acc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{epochs}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{epochs}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{shuffle}\PY{p}{(}\PY{n}{train\PYZus{}idx}\PY{p}{)}
+                     \PY{k}{for} \PY{n}{batch\PYZus{}idx} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}batches}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{idx} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{n}{batch\PYZus{}idx}\PY{o}{*}\PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{p}{(}\PY{n}{batch\PYZus{}idx} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{batch\PYZus{}size}\PY{p}{)}
+                         \PY{n}{batch\PYZus{}x} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{idx}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{p}{]}
+                         \PY{n}{batch\PYZus{}y} \PY{o}{=} \PY{n}{labels}\PY{p}{[}\PY{n}{idx}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{p}{]}
+                         \PY{n}{batch\PYZus{}out} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{forward}\PY{p}{(}\PY{n}{batch\PYZus{}x}\PY{p}{,} \PY{n}{do\PYZus{}train} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+                         \PY{n}{batch\PYZus{}loss} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{compute\PYZus{}loss}\PY{p}{(}\PY{n}{batch\PYZus{}out}\PY{p}{,} \PY{n}{batch\PYZus{}y}\PY{p}{)}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{train\PYZus{}loss}\PY{p}{[}\PY{n}{epoch}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{batch\PYZus{}loss}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{train\PYZus{}acc}\PY{p}{[}\PY{n}{epoch}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{accuracy}\PY{p}{(}\PY{n}{batch\PYZus{}out}\PY{p}{,} \PY{n}{batch\PYZus{}y}\PY{p}{)}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{backward}\PY{p}{(}\PY{n}{batch\PYZus{}y}\PY{p}{)}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{update\PYZus{}batch}\PY{p}{(}\PY{n}{lr}\PY{p}{,} \PY{n}{alpha}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{p}{)}
+                 
+                 \PY{k}{return}
+             
+             \PY{k}{def} \PY{n+nf}{evaluate}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{n}{labels}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{out} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{forward}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{do\PYZus{}train} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+                 \PY{n}{test\PYZus{}loss} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{compute\PYZus{}loss}\PY{p}{(}\PY{n}{out}\PY{p}{,} \PY{n}{labels}\PY{p}{)}
+                 \PY{n}{test\PYZus{}acc} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{accuracy}\PY{p}{(}\PY{n}{out}\PY{p}{,} \PY{n}{labels}\PY{p}{)}
+                 \PY{k}{return} \PY{p}{(}\PY{n}{test\PYZus{}loss}\PY{p}{,} \PY{n}{test\PYZus{}acc}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{generate\PYZus{}data}\PY{p}{(}\PY{n}{rmin}\PY{p}{,} \PY{n}{rmax}\PY{p}{,} \PY{n}{points}\PY{p}{)}\PY{p}{:}
+             \PY{n}{idx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{rmin}\PY{p}{,} \PY{n}{rmax}\PY{p}{,} \PY{n}{points}\PY{p}{)}
+             \PY{n}{x1}\PY{p}{,} \PY{n}{x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{idx}\PY{p}{,} \PY{n}{idx}\PY{p}{)}
+             \PY{n}{new\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{points} \PY{o}{*} \PY{n}{points}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             \PY{n}{new\PYZus{}x}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{x1}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+             \PY{n}{new\PYZus{}x}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{x2}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+             \PY{k}{return} \PY{n}{new\PYZus{}x}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{def} \PY{n+nf}{plot\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{net}\PY{p}{,} \PY{n}{new\PYZus{}data}\PY{p}{,} \PY{n}{new\PYZus{}labels}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{margins}\PY{p}{(}\PY{l+m+mf}{0.05}\PY{p}{)} \PY{c+c1}{\PYZsh{} Optional, just adds 5\PYZpc{} padding to the autoscaling}
+         
+             \PY{n}{indices\PYZus{}0} \PY{o}{=} \PY{p}{[}\PY{n}{k} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{new\PYZus{}data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{k}{if} \PY{n}{new\PYZus{}labels}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{indices\PYZus{}1} \PY{o}{=} \PY{p}{[}\PY{n}{k} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{new\PYZus{}data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{k}{if} \PY{n}{new\PYZus{}labels}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{indices\PYZus{}2} \PY{o}{=} \PY{p}{[}\PY{n}{k} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{new\PYZus{}data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{k}{if} \PY{n}{new\PYZus{}labels}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{]}
+         
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{new\PYZus{}data}\PY{p}{[}\PY{n}{indices\PYZus{}0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{new\PYZus{}data}\PY{p}{[}\PY{n}{indices\PYZus{}0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{new\PYZus{}data}\PY{p}{[}\PY{n}{indices\PYZus{}1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{new\PYZus{}data}\PY{p}{[}\PY{n}{indices\PYZus{}1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{new\PYZus{}data}\PY{p}{[}\PY{n}{indices\PYZus{}2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{new\PYZus{}data}\PY{p}{[}\PY{n}{indices\PYZus{}2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tricky 3 Class Classification}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{num\PYZus{}features} \PY{o}{=} \PY{l+m+mi}{2}
+         \PY{n}{hidden\PYZus{}units\PYZus{}1} \PY{o}{=} \PY{l+m+mi}{20}
+         \PY{n}{hidden\PYZus{}units\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{20}
+         \PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{3}
+         
+         \PY{n}{net} \PY{o}{=} \PY{n}{Network}\PY{p}{(}\PY{p}{(}\PY{n}{num\PYZus{}features}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{p}{)}
+         \PY{n}{net}\PY{o}{.}\PY{n}{add\PYZus{}layer}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Linear}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{num\PYZus{}features}\PY{p}{,} \PY{n}{hidden\PYZus{}units\PYZus{}1}\PY{p}{)}
+         \PY{n}{net}\PY{o}{.}\PY{n}{add\PYZus{}layer}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ReLU}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hidden\PYZus{}units\PYZus{}1}\PY{p}{,} \PY{n}{hidden\PYZus{}units\PYZus{}1}\PY{p}{)}
+         \PY{n}{net}\PY{o}{.}\PY{n}{add\PYZus{}layer}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Linear}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hidden\PYZus{}units\PYZus{}1}\PY{p}{,} \PY{n}{hidden\PYZus{}units\PYZus{}2}\PY{p}{)}
+         \PY{n}{net}\PY{o}{.}\PY{n}{add\PYZus{}layer}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ReLU}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hidden\PYZus{}units\PYZus{}2}\PY{p}{,} \PY{n}{hidden\PYZus{}units\PYZus{}2}\PY{p}{)}
+         \PY{n}{net}\PY{o}{.}\PY{n}{add\PYZus{}layer}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Linear}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hidden\PYZus{}units\PYZus{}2}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{p}{)}
+         \PY{n}{net}\PY{o}{.}\PY{n}{add\PYZus{}loss}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{softmax}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{net}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{4000}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{labels}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{4000}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{seed} \PY{o}{=} \PY{l+m+mi}{618}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train Loss:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{net}\PY{o}{.}\PY{n}{train\PYZus{}loss}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train Acc:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{net}\PY{o}{.}\PY{n}{train\PYZus{}acc}\PY{p}{)}
+         
+         \PY{n}{test\PYZus{}loss}\PY{p}{,} \PY{n}{test\PYZus{}acc} \PY{o}{=} \PY{n}{net}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1000}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{labels}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1000}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Loss:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{test\PYZus{}loss}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Acc:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{test\PYZus{}acc}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} nout = net.forward(data[\PYZhy{}1000:, ::], do\PYZus{}train = False)}
+         \PY{c+c1}{\PYZsh{} nlabels = net.predict(nout)}
+         \PY{c+c1}{\PYZsh{} plot\PYZus{}decision\PYZus{}boundary(net, data[\PYZhy{}1000:, ::], nlabels)}
+         
+         \PY{n}{new\PYZus{}data} \PY{o}{=} \PY{n}{generate\PYZus{}data}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{150}\PY{p}{)}
+         \PY{n}{new\PYZus{}out} \PY{o}{=} \PY{n}{net}\PY{o}{.}\PY{n}{forward}\PY{p}{(}\PY{n}{new\PYZus{}data}\PY{p}{,} \PY{n}{do\PYZus{}train} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{new\PYZus{}labels} \PY{o}{=} \PY{n}{net}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{new\PYZus{}out}\PY{p}{)}
+         \PY{n}{plot\PYZus{}decision\PYZus{}boundary}\PY{p}{(}\PY{n}{net}\PY{p}{,} \PY{n}{new\PYZus{}data}\PY{p}{,} \PY{n}{new\PYZus{}labels}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training seed: 618
+Train Loss: [[-1.29577492e+64]
+ [-2.19379815e+57]
+ [-1.44033561e+55]
+ [-5.93236203e+54]
+ [-8.49657899e+55]
+ [-5.23336068e+57]
+ [-5.20960274e+59]
+ [-5.25441309e+61]
+ [-4.30461125e+63]
+ [-2.61271083e+65]]
+Train Acc: [[ 43.75]
+ [ 68.75]
+ [ 75.  ]
+ [ 87.5 ]
+ [ 93.75]
+ [100.  ]
+ [100.  ]
+ [100.  ]
+ [100.  ]
+ [100.  ]]
+Test Loss: [-2.48160206e+81]
+Test Acc: 95.6
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
