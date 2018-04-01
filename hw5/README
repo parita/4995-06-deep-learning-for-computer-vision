@@ -1,0 +1,20 @@
+The submission is a zip file of the ipython notebook and two python scripts
+that populate the training and validation data folders.
+
+-------------
+  |
+  ----> README
+  ----> HW5_psp2133.ipynb
+        Contains the ipython notebook for submission of the homework
+  ----> make_dataset.py
+        Script to populate the training and validation data based on the
+        specifications
+  ----> verify_dataset.py
+        Verifies that the number of samples are as per specification and
+        that there are no matching samples in the training and validation
+        data folders.
+
+The fine tuned network gets upto 97.5% - 98% accuracy on the validation data.
+Towards the end, it has definitely started overfitting.
+Some correct and incorrect samples are visualized to give a better idea about
+the performance of the network.
